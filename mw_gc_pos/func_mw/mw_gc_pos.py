@@ -4,12 +4,10 @@ from astropy.table import Table
 from matplotlib.patches import Ellipse
 
 
-def mw_gc_pos(
-    data_table: Table,
-):
+def mw_gc_pos(data_table: Table, plot_show: bool = False, plot_save: bool = False):
     # https://gea.esac.esa.int/archive/documentation/GDR3/Gaia_archive/chap_datamodel/sec_dm_performance_verification/ssec_dm_chemical_cartography.html
 
-    x = np.array(data_table["x_gc"])
+    x = -np.array(data_table["x_gc"])  # -ve as sign convention difference between gc catalogue and astropy
     y = np.array(data_table["y_gc"])
     z = np.array(data_table["z_gc"])
 
@@ -26,7 +24,7 @@ def mw_gc_pos(
     colour = "tab:blue"
     flag_colour = "red"
 
-    fig, axs = plt.subplots(2, 2, figsize=(8, 8))
+    fig, axs = plt.subplots(2, 2, figsize=(6, 6))
     plt.subplots_adjust(wspace=0, hspace=0)
 
     axs[0, 1].axis("off")
@@ -113,16 +111,12 @@ def mw_gc_pos(
             axs[1, 0].scatter(x[i], z[i], c=colour, s=size)
             axs[1, 1].scatter(y[i], z[i], c=colour, s=size)
 
-    plt.text(
-        0.5,
-        0.5,
-        str(len(req_fit)) + " MW GCs" + "\n\n" + str(np.sum(req_fit)) + " MW Disk GCs",
-        horizontalalignment="center",
-        verticalalignment="center",
-        transform=axs[0, 1].transAxes,
-    )
+    data_table["pos_fit"] = req_fit
 
-    x_s, y_s, z_s = 8.249, 0, 0.0208
+    data_table.write("mw_gc_pos/d_exp_mw/orbit_details_mod.csv", overwrite=True, delimiter=",")
+
+    # check with Sarah the sign on X_sun
+    x_s, y_s, z_s = -8.249, 0, 0.0208
     c_s = "green"
     s_s = 20
 
@@ -130,4 +124,11 @@ def mw_gc_pos(
     axs[1, 0].scatter(x_s, z_s, marker="*", c=c_s, s=s_s)
     axs[1, 1].scatter(y_s, z_s, marker="*", c=c_s, s=s_s)
 
-    plt.show()
+    if plot_show:
+        plt.show()
+
+    if plot_save:
+        # save figure
+        PRINT_DIR = "mw_gc_pos/figs_mw/"
+        FIG_NAME = "mw_gc_pos.pdf"
+        fig.savefig(PRINT_DIR + FIG_NAME)
