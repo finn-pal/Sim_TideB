@@ -24,9 +24,6 @@ def get_particle(
     # DATA_FLDRPTH = "/Volumes/My Passport for Mac/TideB/"
     DATA_FLDRPTH = "/Users/z5114326/Desktop/Tets/"
 
-    params = {"font.family": "serif", "mathtext.fontset": "stix"}
-    matplotlib.rcParams.update(params)
-
     # file naming
     BASE_FILE = "GLX.000000"
     init_file = BASE_FILE[: -len(str(init_time))] + str(init_time)
@@ -45,7 +42,7 @@ def get_particle(
         # timestr = str(np.round(float(t_now), 1))
 
         i_ord_pos = s[iord]["pos"][0]
-        print(i_ord_pos.units)
+        print(i_ord_pos)
 
         # next loop step
         past_file_num = next_time_num
