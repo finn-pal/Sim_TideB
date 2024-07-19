@@ -8,7 +8,7 @@ import pynbody.plot.sph as sph
 DATA_FLDRPTH = "/Users/z5114326/Desktop/Tets/"
 # DATA_FLDRPTH = "/Volumes/My Passport for Mac/TideB/"
 
-BASE_FILE = "GLX.000010"
+BASE_FILE = "GLX.000001"
 
 params = {"font.family": "serif", "mathtext.fontset": "stix"}
 matplotlib.rcParams.update(params)
@@ -42,9 +42,9 @@ s_eps = post["eps"]
 x_pos = [pos[0] for pos in post["pos"]]
 y_pos = [pos[1] for pos in post["pos"]]
 
-eps_val = 0.01
-eps_val = 0.05
-eps_val = 0.10
+# eps_val = 0.01
+# eps_val = 0.05
+# eps_val = 0.10
 eps_val = 0.20  # companion
 
 x = [x for x, eps in zip(x_pos, s_eps) if round(eps, 2) == eps_val]
