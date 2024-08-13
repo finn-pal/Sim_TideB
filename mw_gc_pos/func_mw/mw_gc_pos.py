@@ -124,6 +124,12 @@ def mw_gc_pos(data_table: Table, plot_show: bool = False, plot_save: bool = Fals
     axs[1, 0].scatter(x_s, z_s, marker="*", c=c_s, s=s_s)
     axs[1, 1].scatter(y_s, z_s, marker="*", c=c_s, s=s_s)
 
+    axs[0, 0].plot([1.9, 1.9], [-50, 50], c="k", ls="dashed")
+    axs[0, 0].plot([-1.9, -1.9], [-50, 50], c="k", ls="dashed")
+
+    axs[0, 0].plot([-50, 50], [1.9, 1.9], c="k", ls="dashed")
+    axs[0, 0].plot([-50, 50], [-1.9, -1.9], c="k", ls="dashed")
+
     if plot_show:
         plt.show()
 
